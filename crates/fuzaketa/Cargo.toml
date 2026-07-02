@@ -1,0 +1,20 @@
+[package]
+name = "fuzaketa"
+edition.workspace = true
+license.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "fuzaketa"
+path = "src/main.rs"
+
+[features]
+# Linux-only CUDA backend, see flake.nix `fuzaketa-cuda` package/app.
+cuda = ["burn/cuda"]
+
+[dependencies]
+burn = { workspace = true, features = ["train", "tui", "wgpu", "fusion"] }
+clap.workspace = true
+rand.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true

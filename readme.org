@@ -1,0 +1,29 @@
+* Fuzaketa, ふざけた, a toy/explainer GPT-2 model and inference implementation
+
+What is it? In the end its a roughly GPT-2 model implementation that can be trained against some corpus of text.
+
+** To train against some input corpus
+
+Responsibility to obtaining data is up to the user.
+
+But to train on a consumer gpu with reasonable...ish hyperparms, note the -cuda variant can be swapped and ran on non nvidia gpus for slower training perf:
+
+#+begin_src sh
+nix run github:mitchty/fuzaketa#fuzaketa-cuda -- train --context-length 128 --n-steps 200 --n-layers 12 --n-heads 12 --d-model 768 --batch-size 128 --learning-rate 0.0003 --seed 0 --micro-batch-size 32 --text-corpus /path/to/some/chungus/test/training.data
+#+end_src
+
+Note params above were used to train on an RTX 4090. Adjust as you see fit.
+
+** To run inference across the transformer model
+
+For absolute gibberish out of the trained data you can run:
+
+#+begin_src sh
+nix run github:mitchty/fuzaketa#fuzaketa-cuda -- infer --prompt "Name a few philosophers"
+#+end_src
+
+* The name
+
+Because I know someone will ask, what is with the name? ふざけた basically is the Japanese past tense of the verb fuzakeru which means to joke around or to mess around. Because that is basically what this repo is. Messing around with an llm to learn. Don't think about it too much I just like naming my repos in a funny way.
+
+Its a demo repo at best, don't use this for anything but learning unless you're crazy or willing to put a crazy amount of work in.

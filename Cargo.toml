@@ -1,0 +1,29 @@
+[workspace]
+resolver = "2"
+members = ["crates/fuzaketa"]
+
+[workspace.metadata.crane]
+name = "fuzaketa"
+
+[workspace.package]
+edition = "2024"
+license = "BlueOak-1.0.0"
+version = "0.1.0"
+
+[workspace.dependencies]
+burn = { version = "~0.20", default-features = false, features = ["std"] }
+clap = { version = "~4.6", features = ["derive"] }
+rand = "~0.8"
+tracing = { version = "~0.1", features = ["release_max_level_debug"] }
+tracing-subscriber = { version = "~0.3", features = ["env-filter"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+
+# Don't pay the lto/codegen-unit=1 compile time tax.
+[profile.release-fast]
+inherits = "release"
+lto = false
+codegen-units = 16
